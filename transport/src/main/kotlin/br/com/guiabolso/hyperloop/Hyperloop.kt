@@ -8,10 +8,14 @@ import br.com.guiabolso.hyperloop.exceptions.SendMessageException
 import br.com.guiabolso.hyperloop.schemas.aws.S3SchemaRepository
 import br.com.guiabolso.hyperloop.transport.MessageResult
 import br.com.guiabolso.hyperloop.transport.Transport
+import br.com.guiabolso.hyperloop.util.Clock
+import br.com.guiabolso.hyperloop.util.DefaultClock
+import br.com.guiabolso.hyperloop.util.isoFormat
 import br.com.guiabolso.hyperloop.validation.Validator
 import br.com.guiabolso.hyperloop.validation.VersionedEventValidator
 import br.com.guiabolso.hyperloop.validation.exceptions.ValidationException
 import com.amazonaws.regions.Regions
+import com.github.salomonbrys.kotson.set
 import com.google.gson.GsonBuilder
 
 class Hyperloop
@@ -19,12 +23,14 @@ class Hyperloop
 constructor(
     private val transport: Transport,
     private val validator: Validator = defaultValidator(),
-    private val messageCypher: MessageCypher = NoOpMessageCypher
+    private val messageCypher: MessageCypher = NoOpMessageCypher,
+    private val clock: Clock = DefaultClock
 ) {
 
     private val gson = GsonBuilder().serializeNulls().create()
 
     fun offer(event: RequestEvent): MessageResult {
+        event.metadata["receivedAt"] = clock.now().isoFormat()
         val validationResult = validator.validate(event)
 
         if (!validationResult.validationSuccess) {
