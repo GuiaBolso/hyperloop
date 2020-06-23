@@ -37,7 +37,8 @@ Structure
         "name": "Thiago Bardella",
         "birthdate": "22/05/1990",
         "gender": "male"
-      }
+      },
+      "createdAt": "2020-06-23T15:30:00Z"
     }
   },
   "identity":{
@@ -73,6 +74,8 @@ types:
      of: $User
    name:
      of: string
+   createdAt:
+     of: datetime
  $User:
    name:
      of: string
@@ -178,6 +181,14 @@ name:
     birthdate:
      of: date(yyyy-MM-dd HH:mm:ss)
     ```    
+
+* datetime
+
+    Must follow the [ISO INSTANT format](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_INSTANT) (yyyy-MM-ddTHH:mm:ssZ)
+    ```yaml
+    createdAt:
+     of: datetime
+    ```
 
 * array
     ```yaml
