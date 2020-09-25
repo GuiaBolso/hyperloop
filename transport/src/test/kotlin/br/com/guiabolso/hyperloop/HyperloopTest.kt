@@ -4,8 +4,6 @@ import br.com.guiabolso.events.builder.EventBuilder
 import br.com.guiabolso.events.model.RequestEvent
 import br.com.guiabolso.hyperloop.cryptography.cypher.MessageCypher
 import br.com.guiabolso.hyperloop.exceptions.InvalidInputException
-import br.com.guiabolso.hyperloop.exceptions.SendMessageException
-import br.com.guiabolso.hyperloop.transport.MessageResult
 import br.com.guiabolso.hyperloop.transport.Transport
 import br.com.guiabolso.hyperloop.util.Clock
 import br.com.guiabolso.hyperloop.util.isoFormat
@@ -32,7 +30,6 @@ class HyperloopTest {
     private var cryptographyEngine: MessageCypher = mock()
     private var clock: Clock = mock()
     private lateinit var event: RequestEvent
-    private lateinit var eventMD5: String
     private lateinit var date: LocalDateTime
     private val gson = Gson()
 
@@ -55,9 +52,7 @@ class HyperloopTest {
     @Test
     fun `test can send event as message`() {
         event.metadata["receivedAt"] = date.isoFormat()
-        eventMD5 = gson.toJson(event).md5()
         whenever(clock.now()).thenReturn(date)
-        whenever(transport.sendMessage(any())).thenReturn(MessageResult("some-id", eventMD5))
         whenever(validator.validate(any())).thenReturn(ValidationResult(true, mutableSetOf(), mutableSetOf()))
         whenever(cryptographyEngine.cypher(any())).thenAnswer {
             it.arguments[0] as String
@@ -68,22 +63,9 @@ class HyperloopTest {
         verify(transport).sendMessage(gson.toJson(event))
     }
 
-    @Test(expected = SendMessageException::class)
-    fun `test send event fails with invalid md5`() {
-        whenever(clock.now()).thenReturn(date)
-        whenever(transport.sendMessage(any())).thenReturn(MessageResult("some-id", "wrong-md5-hash"))
-        whenever(validator.validate(any())).thenReturn(ValidationResult(true, mutableSetOf(), mutableSetOf()))
-        whenever(cryptographyEngine.cypher(any())).thenAnswer {
-            it.arguments[0] as String
-        }
-
-        hyperloop.offer(event)
-    }
-
     @Test(expected = ValidationException::class)
     fun `test validate event fails`() {
         whenever(clock.now()).thenReturn(date)
-        whenever(transport.sendMessage(any())).thenReturn(MessageResult("some-id", "wrong-md5-hash"))
         whenever(validator.validate(any())).thenReturn(
             ValidationResult(
                 false,
