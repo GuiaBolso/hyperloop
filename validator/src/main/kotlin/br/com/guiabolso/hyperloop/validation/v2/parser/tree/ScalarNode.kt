@@ -23,7 +23,7 @@ data class ScalarNode(
             element is JsonArray -> for (el in element) {
                 this.validate(el)
             }
-            element is JsonPrimitive -> type.verifyType(element)
+            element is JsonPrimitive -> type.verifyType(element, path)
             else -> throw IllegalStateException("Element is not null or primitive. This probably is a parser bug.")
         }
     }
