@@ -7,7 +7,6 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonNull
 import com.google.gson.JsonPrimitive
 
-
 data class ScalarNode(
     val type: PrimitiveTypes,
     val encrypted: Boolean,

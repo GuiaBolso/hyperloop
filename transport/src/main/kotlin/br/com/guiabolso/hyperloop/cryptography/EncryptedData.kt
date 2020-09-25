@@ -18,5 +18,4 @@ data class EncryptedData(val data: ByteArray) {
     override fun hashCode(): Int {
         return Arrays.hashCode(data)
     }
-
 }

@@ -242,8 +242,8 @@ repositories {
 and the following dependencies:
 
 ```
-compile 'br.com.guiabolso:hyperloop-transport:1.4.2'
-compile 'br.com.guiabolso:hyperloop-validator:1.4.2'
+compile 'br.com.guiabolso:hyperloop-transport:2.0.6'
+compile 'br.com.guiabolso:hyperloop-validator:2.0.6'
 ```
 
 ### Validator

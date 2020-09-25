@@ -36,7 +36,6 @@ class SchemaTreeRepositoryTest {
         assertNotNull(schemaTree)
     }
 
-
     @Test(expected = TypeNotFoundException::class)
     fun `test cannot find type node`() {
         whenever(schemaRepository.get(any())).thenReturn(loadSchemaFromFile("/schema_V2_broken_type_test.yaml"))
@@ -55,7 +54,6 @@ class SchemaTreeRepositoryTest {
         assertNotNull(node)
         assertEquals(PrimitiveTypes.STRING, node!!.type)
         assertEquals("$.payload.array[*].anotherStr", node.path)
-
     }
 
     @Test

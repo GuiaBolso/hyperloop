@@ -8,29 +8,29 @@ sealed class SchemaType {
 }
 
 class ArrayType(
-        override val nodeKey: String,
-        val contentType: SchemaType
+    override val nodeKey: String,
+    val contentType: SchemaType
 ) : SchemaType()
 
 class DateType(
-        override val nodeKey: String,
-        val format: String
+    override val nodeKey: String,
+    val format: String
 ) : SchemaType()
 
 class UserDefinedType(
-        override val nodeKey: String,
-        val userType: JsonNode
+    override val nodeKey: String,
+    val userType: JsonNode
 ) : SchemaType()
 
-class MapType (
-        override val nodeKey: String,
-        val key: SchemaType,
-        val value: SchemaType
+class MapType(
+    override val nodeKey: String,
+    val key: SchemaType,
+    val value: SchemaType
 ) : SchemaType()
 
 class PrimitiveType(
-        override val nodeKey: String,
-        rawType: String
+    override val nodeKey: String,
+    rawType: String
 ) : SchemaType() {
     val type = PrimitiveTypes.valueOf(rawType.toUpperCase())
 }

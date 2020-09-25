@@ -9,14 +9,14 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import java.io.BufferedReader
 
 class S3SchemaRepository(
-        private val bucketName: String,
-        region: Regions
+    private val bucketName: String,
+    region: Regions
 ) : SchemaRepository<String> {
 
     private val s3Client = AmazonS3ClientBuilder
-            .standard()
-            .withRegion(region)
-            .build()
+        .standard()
+        .withRegion(region)
+        .build()
 
     override fun get(schemaKey: SchemaKey): String {
         try {
@@ -28,5 +28,4 @@ class S3SchemaRepository(
             throw SchemaFetchingException("Could not fetch schema $schemaKey")
         }
     }
-
 }

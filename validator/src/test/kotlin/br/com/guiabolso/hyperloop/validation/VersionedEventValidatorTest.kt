@@ -32,17 +32,21 @@ class VersionedEventValidatorTest {
             payload = JsonObject().apply {
                 addProperty("answer", 42)
                 add("nested", JsonObject().apply { addProperty("someStr", "wow such code") })
-                add("array",
+                add(
+                    "array",
                     JsonArray().apply {
                         add(JsonObject().apply { addProperty("anotherStr", "wow such string") })
                         add(JsonObject().apply { addProperty("anotherStr", "wow another string") })
-                    })
-                add("arrayPrimitive",
+                    }
+                )
+                add(
+                    "arrayPrimitive",
                     JsonArray().apply {
                         add(10)
                         add(20)
                         add(12)
-                    })
+                    }
+                )
             }
             identity = JsonObject().apply {
                 addProperty("userId", 1)
@@ -69,17 +73,21 @@ class VersionedEventValidatorTest {
                 addProperty("answer", 42)
                 addProperty("nullValue", "test")
                 add("nested", JsonObject().apply { addProperty("someStr", "wow such code") })
-                add("array",
+                add(
+                    "array",
                     JsonArray().apply {
                         add(JsonObject().apply { addProperty("anotherStr", "wow such string") })
                         add(JsonObject().apply { addProperty("anotherStr", "wow another string") })
-                    })
-                add("arrayPrimitive",
+                    }
+                )
+                add(
+                    "arrayPrimitive",
                     JsonArray().apply {
                         add(10)
                         add(20)
                         add(12)
-                    })
+                    }
+                )
             }
             metadata = JsonObject().apply {
                 addProperty("origin", "some strange system")
@@ -91,7 +99,6 @@ class VersionedEventValidatorTest {
         val validationResult = versionedEventValidator.validate(event)
         assertTrue(validationResult.validationSuccess)
     }
-
 
     private fun loadSchemaFromFile(path: String): String {
         return this::class.java.getResourceAsStream(path).bufferedReader().use { it.readText() }

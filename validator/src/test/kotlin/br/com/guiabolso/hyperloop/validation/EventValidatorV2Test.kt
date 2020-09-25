@@ -44,17 +44,21 @@ class EventValidatorV2Test {
                 addProperty("answer", 42)
                 addProperty("nullValue", "test")
                 add("nested", JsonObject().apply { addProperty("someStr", "wow such code") })
-                add("array",
+                add(
+                    "array",
                     JsonArray().apply {
                         add(JsonObject().apply { addProperty("anotherStr", "wow such string") })
                         add(JsonObject().apply { addProperty("anotherStr", "wow another string") })
-                    })
-                add("arrayPrimitive",
+                    }
+                )
+                add(
+                    "arrayPrimitive",
                     JsonArray().apply {
                         add(10)
                         add(20)
                         add(12)
-                    })
+                    }
+                )
             }
             metadata = JsonObject().apply {
                 addProperty("origin", "some strange system")
@@ -79,11 +83,13 @@ class EventValidatorV2Test {
                 addProperty("answer", 42)
                 addProperty("nullValue", "test")
                 add("nested", JsonObject().apply { addProperty("someStr", "wow such code") })
-                add("array",
+                add(
+                    "array",
                     JsonArray().apply {
                         add(JsonObject().apply { addProperty("anotherStr", "wow such string") })
                         add(JsonObject().apply { addProperty("anotherStr", "wow another string") })
-                    })
+                    }
+                )
             }
             metadata = JsonObject().apply {
                 addProperty("origin", "some strange system")
@@ -98,7 +104,6 @@ class EventValidatorV2Test {
         assertThat(validationResult.validationErrors.iterator().next(), instanceOf(PathNotFoundException::class.java))
     }
 
-
     @Test
     fun `test fail validation when node is null`() {
         val event = EventBuilder.event {
@@ -110,17 +115,21 @@ class EventValidatorV2Test {
                 addProperty("answer", 42)
                 addProperty("nullValue", "test")
                 add("nested", JsonObject().apply { addProperty("someStr", "wow such code") })
-                add("array",
+                add(
+                    "array",
                     JsonArray().apply {
                         add(JsonObject().apply { addProperty("anotherStr", "wow such string") })
                         add(JsonObject().apply { addProperty("anotherStr", "wow another string") })
-                    })
-                add("arrayPrimitive",
+                    }
+                )
+                add(
+                    "arrayPrimitive",
                     JsonArray().apply {
                         add(10)
                         add(20)
                         add(12)
-                    })
+                    }
+                )
             }
             metadata = JsonObject().apply {
                 add("origin", JsonNull.INSTANCE)
@@ -134,7 +143,6 @@ class EventValidatorV2Test {
         assertThat(validationResult.validationErrors.iterator().next(), instanceOf(InvalidInputException::class.java))
     }
 
-
     @Test
     fun `test success validation when node is null but is nullable`() {
         val event = EventBuilder.event {
@@ -146,17 +154,21 @@ class EventValidatorV2Test {
                 addProperty("answer", 42)
                 add("nullValue", JsonNull.INSTANCE)
                 add("nested", JsonObject().apply { addProperty("someStr", "wow such code") })
-                add("array",
+                add(
+                    "array",
                     JsonArray().apply {
                         add(JsonObject().apply { addProperty("anotherStr", "wow such string") })
                         add(JsonObject().apply { addProperty("anotherStr", "wow another string") })
-                    })
-                add("arrayPrimitive",
+                    }
+                )
+                add(
+                    "arrayPrimitive",
                     JsonArray().apply {
                         add(10)
                         add(20)
                         add(12)
-                    })
+                    }
+                )
             }
             metadata = JsonObject().apply {
                 addProperty("origin", "test")

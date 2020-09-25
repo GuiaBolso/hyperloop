@@ -5,5 +5,4 @@ interface CryptographyEngine {
     fun decrypt(data: EncryptedData): String
 
     fun encrypt(plainText: String): EncryptedData
-
 }

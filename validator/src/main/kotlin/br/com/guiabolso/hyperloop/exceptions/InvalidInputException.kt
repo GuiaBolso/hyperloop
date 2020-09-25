@@ -1,6 +1,6 @@
 package br.com.guiabolso.hyperloop.exceptions
 
-import java.util.*
+import java.util.Objects
 
 class InvalidInputException(message: String) : RuntimeException(message) {
 

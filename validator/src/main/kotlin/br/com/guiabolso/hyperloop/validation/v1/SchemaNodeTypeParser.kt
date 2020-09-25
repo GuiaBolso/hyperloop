@@ -11,7 +11,7 @@ object SchemaNodeTypeParser {
     fun getSchemaNodeType(schema: SchemaData, nodeKey: String, specNode: JsonNode): SchemaType {
         val rawType = specNode.get("of")?.asText() ?: throw WrongSchemaFormatException("Missing type for key $nodeKey")
         val groups = typeRegex.find(rawType)?.groupValues
-                ?: throw WrongSchemaFormatException("Illegal type $rawType. $rawType is neither primitive, array, date nor user defined")
+            ?: throw WrongSchemaFormatException("Illegal type $rawType. $rawType is neither primitive, array, date nor user defined")
         val type = groups[1]
         val attribute = if (groups.size > 1) {
             groups.last()
@@ -38,15 +38,16 @@ object SchemaNodeTypeParser {
                         attribute
                     )
                     "date" -> DateType(nodeKey, attribute)
-                    else -> if (isUserDefinedType(
+                    else ->
+                        if (isUserDefinedType(
                             attribute.notNull("Array content type should not be null"),
                             schema
                         )
-                    ) {
-                        UserDefinedType(nodeKey, schema.types!!.get(attribute))
-                    } else {
-                        throw WrongSchemaFormatException("Illegal type $type. $type is neither primitive, array, date nor user defined")
-                    }
+                        ) {
+                            UserDefinedType(nodeKey, schema.types!!.get(attribute))
+                        } else {
+                            throw WrongSchemaFormatException("Illegal type $type. $type is neither primitive, array, date nor user defined")
+                        }
                 }
                 ArrayType(nodeKey, arrayContentType)
             }
@@ -77,11 +78,12 @@ object SchemaNodeTypeParser {
 
                 MapType(nodeKey, key, value)
             }
-            else -> if (isUserDefinedType(type, schema)) {
-                UserDefinedType(nodeKey, schema.types!!.get(type))
-            } else {
-                throw WrongSchemaFormatException("Illegal type $type. $type is neither primitive, array, date nor user defined")
-            }
+            else ->
+                if (isUserDefinedType(type, schema)) {
+                    UserDefinedType(nodeKey, schema.types!!.get(type))
+                } else {
+                    throw WrongSchemaFormatException("Illegal type $type. $type is neither primitive, array, date nor user defined")
+                }
         }
     }
 

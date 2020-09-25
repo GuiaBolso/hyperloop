@@ -19,7 +19,6 @@ class VersionedEventValidator(schemaRepository: SchemaRepository<String>) : Vali
         eventValidatorV2 = EventValidatorV2(CachedSchemaRepository(SchemaTreeRepository(schemaRepository)))
     }
 
-
     override fun validate(event: RequestEvent): ValidationResult {
         val schemaData = cachedSchemaDataRepository.get(SchemaKey(event.name, event.version))
         return when (schemaData.schema.version) {
@@ -27,6 +26,5 @@ class VersionedEventValidator(schemaRepository: SchemaRepository<String>) : Vali
             2 -> eventValidatorV2.validate(event)
             else -> throw IllegalArgumentException("Schema with invalid version: ${schemaData.schema.version}")
         }
-
     }
 }
