@@ -53,9 +53,11 @@ Structure
 PS.: Validator module now is prepared for also accepting a list of userIds under "identity" tag:
 
 ```json
-"identity":{
+{
+  "identity":{
     "userIds": [1, 2, 3, 4]
   }
+}
 ```
 
 #### Schema
@@ -255,9 +257,6 @@ For example the schema and event defined below are a valid representation of the
 
 - ### Usage
 
-
-
-
 ```kotlin
     val event: RequestEvent
     
@@ -270,20 +269,19 @@ For example the schema and event defined below are a valid representation of the
     
     if (validationResult.validationSuccess) {
         //success
-    }
-    else
+    } else {
         val errors: List<Throwable> = validationResult.validationErrors
+        // handler erros
+    }
     
     val encryptedFieldsJsonPaths: List<String> = validationResult.encryptedFields
 ```
 
 ### Transport
 
-
 The transport module is used to validate and send the event to a specified destination. Currently the supported destination are:
 
 * AWS SQS
-* AWS Firehose
 
 - ### Usage
 
@@ -292,6 +290,7 @@ val event = ...
 val sqsTransport = SQSTransport(
         System.getenv("DESTINATION-QUEUE"),
         Regions.fromName(System.getenv("DESTINATION-REGION"))
+)
 val hyperloop = Hyperloop(sqsTransport)
 
 val result = hyperloop.offer(event)
