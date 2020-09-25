@@ -50,7 +50,6 @@ class HyperloopTest {
             metadata = jsonObject("origin" to "Kyoto - Japan")
         }
         date = LocalDateTime.now()
-
     }
 
     @Test
@@ -68,7 +67,6 @@ class HyperloopTest {
 
         verify(transport).sendMessage(gson.toJson(event))
     }
-
 
     @Test(expected = SendMessageException::class)
     fun `test send event fails with invalid md5`() {
@@ -99,5 +97,4 @@ class HyperloopTest {
 
         hyperloop.offer(event)
     }
-
 }

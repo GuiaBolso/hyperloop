@@ -102,7 +102,6 @@ class SchemaTreeRepository(
             else -> mutableMapOf()
         }
 
-
     private fun isRoot(nodePath: String) = nodePath == "$"
     private fun JsonNode.rawType() = this["of"].textValue().replace(arrayTypeRegex) { it.groupValues[1] }
     private fun JsonNode.type() =
@@ -120,8 +119,4 @@ class SchemaTreeRepository(
         private val arrayTypeRegex = "^array\\((.+)\\)\$".toRegex(RegexOption.IGNORE_CASE)
         private val yaml = ObjectMapper(YAMLFactory()).registerKotlinModule()
     }
-
 }
-
-
-

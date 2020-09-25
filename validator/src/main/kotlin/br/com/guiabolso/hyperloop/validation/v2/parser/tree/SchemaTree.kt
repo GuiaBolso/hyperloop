@@ -1,6 +1,5 @@
 package br.com.guiabolso.hyperloop.validation.v2.parser.tree
 
-
 class SchemaTree(
     private val treeMap: Map<String, ScalarNode>
 ) : Iterable<Map.Entry<String, ScalarNode>> {

@@ -38,5 +38,4 @@ class CachingKMSEngine(
         val decryptedData = crypto.decryptData(cache, data.data).getResult()
         return String(decryptedData)
     }
-
 }

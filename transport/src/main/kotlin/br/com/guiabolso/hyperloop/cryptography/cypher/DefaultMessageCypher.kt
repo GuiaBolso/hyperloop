@@ -4,7 +4,7 @@ import br.com.guiabolso.hyperloop.b64
 import br.com.guiabolso.hyperloop.cryptography.CryptographyEngine
 
 class DefaultMessageCypher(
-        private val cryptographyEngine: CryptographyEngine
+    private val cryptographyEngine: CryptographyEngine
 ) : MessageCypher {
 
     override fun cypher(plainMessage: String): String {

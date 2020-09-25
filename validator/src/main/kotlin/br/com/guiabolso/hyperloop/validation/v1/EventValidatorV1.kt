@@ -24,7 +24,6 @@ class EventValidatorV1(
     private val schemaRepository: SchemaRepository<SchemaData>
 ) : Validator {
 
-
     override fun validate(event: RequestEvent): ValidationResult {
         val validationResult =
             ValidationResult(false, mutableSetOf(), mutableSetOf())

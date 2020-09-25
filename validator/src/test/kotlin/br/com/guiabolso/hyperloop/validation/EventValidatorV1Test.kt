@@ -48,7 +48,8 @@ class EventValidatorV1Test {
 
     @Test
     fun `test successful validation`() {
-        val payload = """
+        val payload =
+            """
                         "users": [
                             {
                                 "name": "Bruno",
@@ -110,8 +111,7 @@ class EventValidatorV1Test {
                         "o": "Thiago",
                         "k": "Thiago",
                         "l": "Thiago"
-                """.trimIndent()
-
+            """.trimIndent()
 
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schema)
 
@@ -129,7 +129,8 @@ class EventValidatorV1Test {
 
     @Test
     fun `test successful validation with map`() {
-        val payload = """
+        val payload =
+            """
                         "users": [
                             {
                                 "name": "Bruno",
@@ -202,7 +203,7 @@ class EventValidatorV1Test {
                         "o": "Thiago",
                         "k": "Thiago",
                         "l": "Thiago"
-                """.trimIndent()
+            """.trimIndent()
 
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schemaWithMap)
         val response = eventValidator.validate(newEvent("event_test", 1, payload))
@@ -221,11 +222,12 @@ class EventValidatorV1Test {
 
     @Test
     fun `test successful validation with map integer to string`() {
-        val payload = """
+        val payload =
+            """
                         "map": {
                             "1": "Bardellinha"
                         }
-                """.trimIndent()
+            """.trimIndent()
 
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schemaWithMapStringString)
         val response = eventValidator.validate(newEvent("event_test", 1, payload))
@@ -234,9 +236,10 @@ class EventValidatorV1Test {
 
     @Test
     fun `test successful validation with empty map`() {
-        val payload = """
+        val payload =
+            """
                         "map": {}
-                """.trimIndent()
+            """.trimIndent()
 
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schemaWithMapStringString)
         val response = eventValidator.validate(newEvent("event_test", 1, payload))
@@ -245,9 +248,10 @@ class EventValidatorV1Test {
 
     @Test
     fun `test failed validation with null map`() {
-        val payload = """
+        val payload =
+            """
                         "map": null
-                """.trimIndent()
+            """.trimIndent()
 
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schemaWithMapStringString)
 
@@ -260,11 +264,12 @@ class EventValidatorV1Test {
 
     @Test
     fun `test successful validation with null types `() {
-        val payload = """
+        val payload =
+            """
                         "name": "Thiago",
                         "x": "Thiago",
                         "y": "Thiago"
-                """.trimIndent()
+            """.trimIndent()
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schemaWithNullType)
         val response = eventValidator.validate(newEvent("event_test", 1, payload))
         assertTrue(response.validationSuccess)
@@ -274,9 +279,10 @@ class EventValidatorV1Test {
 
     @Test
     fun `test event with payload but no payload specification`() {
-        val payload = """
+        val payload =
+            """
                         "name": "Thiago"
-                """.trimIndent()
+            """.trimIndent()
         val event = newEvent("event_test", 1, payload)
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schemaWithNullPayload)
         val expectedErrors = mutableListOf<Throwable>(
@@ -290,9 +296,10 @@ class EventValidatorV1Test {
 
     @Test
     fun `test event with userId but no identity specification`() {
-        val payload = """
+        val payload =
+            """
                         "name": "Thiago"
-                """.trimIndent()
+            """.trimIndent()
         val event = newEvent("event_test", 1, payload)
 
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schemaWithNullIdentity)
@@ -304,10 +311,11 @@ class EventValidatorV1Test {
 
     @Test
     fun `test successfull validation with userId and userIds`() {
-        val identity = """
+        val identity =
+            """
                         "userId": 1,
                         "userIds": [1, 2, 3]
-        """.trimIndent()
+            """.trimIndent()
         val event = newEvent("event_test", 1, "", identity)
 
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schemaWithUserIds)
@@ -319,12 +327,14 @@ class EventValidatorV1Test {
 
     @Test
     fun `test event with userId as non JsonPrimitive`() {
-        val payload = """
+        val payload =
+            """
                         "name": "Thiago"
-                """.trimIndent()
-        val identity = """
+            """.trimIndent()
+        val identity =
+            """
                         "userId": {}
-        """.trimIndent()
+            """.trimIndent()
         val event = newEvent("event_test", 1, payload, identity)
 
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schemaWithNullIdentity)
@@ -339,12 +349,14 @@ class EventValidatorV1Test {
 
     @Test
     fun `test event with userIds as non JsonArray`() {
-        val payload = """
+        val payload =
+            """
                         "name": "Thiago"
-                """.trimIndent()
-        val identity = """
+            """.trimIndent()
+        val identity =
+            """
                         "userIds": 2
-        """.trimIndent()
+            """.trimIndent()
         val event = newEvent("event_test", 1, payload, identity)
 
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schemaWithNullIdentity)
@@ -359,9 +371,10 @@ class EventValidatorV1Test {
 
     @Test
     fun `test event with origin but no metadata specification`() {
-        val payload = """
+        val payload =
+            """
                         "name": "Thiago"
-                """.trimIndent()
+            """.trimIndent()
         val event = newEvent("event_test", 1, payload)
 
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schemaWithNullMetadata)
@@ -394,9 +407,10 @@ class EventValidatorV1Test {
 
     @Test
     fun `test wrong array type validation`() {
-        val payload = """
+        val payload =
+            """
                         "users": "notAnArray"
-                """.trimIndent()
+            """.trimIndent()
         whenever(mockSchemaRepository.get(SchemaKey("event_test", 1))).thenReturn(schema)
         val expectedErrors = mutableListOf<Throwable>(
             InvalidInputException("Array element 'users' is in the wrong format"),
@@ -429,7 +443,8 @@ class EventValidatorV1Test {
         eventName: String,
         eventVersion: Int,
         payload: String,
-        identity: String? = """ "userId": 1 """
+        identity: String? =
+            """ "userId": 1 """
     ): RequestEvent {
 
         val metadata = JsonObject()

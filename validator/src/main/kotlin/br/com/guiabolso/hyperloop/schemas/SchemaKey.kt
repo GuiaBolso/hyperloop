@@ -1,8 +1,8 @@
 package br.com.guiabolso.hyperloop.schemas
 
 data class SchemaKey(
-        val name: String,
-        val version: Int
+    val name: String,
+    val version: Int
 ) {
 
     override fun toString(): String {

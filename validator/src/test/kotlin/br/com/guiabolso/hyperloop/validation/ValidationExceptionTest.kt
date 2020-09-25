@@ -11,10 +11,12 @@ class ValidationExceptionTest {
         val errors = setOf(IllegalArgumentException("some illegal argument"), IllegalStateException("some illegal state"))
         val validationException = ValidationException("some message", errors)
 
-        assertEquals(validationException.message, """|some message
+        assertEquals(
+            validationException.message,
+            """|some message
                                                      |errors:
                                                             |	some illegal argument
-                                                            |	some illegal state""".trimMargin())
+                                                            |	some illegal state""".trimMargin()
+        )
     }
 }
-

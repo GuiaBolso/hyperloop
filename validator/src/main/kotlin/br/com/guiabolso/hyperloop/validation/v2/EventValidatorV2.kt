@@ -14,7 +14,6 @@ import com.jayway.jsonpath.JsonPath
 import com.jayway.jsonpath.PathNotFoundException
 import com.jayway.jsonpath.spi.json.GsonJsonProvider
 
-
 class EventValidatorV2(
     private val schemaRepository: SchemaRepository<SchemaTree>
 ) : Validator {
