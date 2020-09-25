@@ -171,7 +171,7 @@ class EventValidatorV1(
                     )
                     encryptedElementPath.remove(encryptedElementPath.lastOrNull())
                 }
-                is PrimitiveType -> schemaType.type.verifyType(inputNode.asJsonPrimitive)
+                is PrimitiveType -> schemaType.type.verifyType(inputNode.asJsonPrimitive, schemaType.nodeKey)
             }
         } catch (exception: Exception) {
             validationResult.validationErrors.add(exception)

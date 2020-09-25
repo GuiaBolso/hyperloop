@@ -7,61 +7,61 @@ import java.time.format.DateTimeFormatter
 
 enum class PrimitiveTypes {
     STRING {
-        override fun verifyType(element: JsonPrimitive) {
+        override fun verifyType(element: JsonPrimitive, nodeKey: String) {
             if (!element.isString) {
-                throw InvalidInputException("Input $element is not a string")
+                throw InvalidInputException("Input $element is not a string on nodekey $nodeKey")
             }
         }
     },
     LONG {
-        override fun verifyType(element: JsonPrimitive) {
+        override fun verifyType(element: JsonPrimitive, nodeKey: String) {
             try {
                 element.asLong
             } catch (exception: Exception) {
-                throw InvalidInputException("Input $element is not a long")
+                throw InvalidInputException("Input $element is not a long on nodekey $nodeKey")
             }
         }
     },
     INT {
-        override fun verifyType(element: JsonPrimitive) {
+        override fun verifyType(element: JsonPrimitive, nodeKey: String) {
             try {
                 element.asInt
             } catch (exception: Exception) {
-                throw InvalidInputException("Input $element is not an int")
+                throw InvalidInputException("Input $element is not an int on nodekey $nodeKey")
             }
         }
     },
     FLOAT {
-        override fun verifyType(element: JsonPrimitive) {
+        override fun verifyType(element: JsonPrimitive, nodeKey: String) {
             try {
                 element.asFloat
             } catch (exception: Exception) {
-                throw InvalidInputException("Input $element is not a float")
+                throw InvalidInputException("Input $element is not a float on nodekey $nodeKey")
             }
         }
     },
     DOUBLE {
-        override fun verifyType(element: JsonPrimitive) {
+        override fun verifyType(element: JsonPrimitive, nodeKey: String) {
             try {
                 element.asDouble
             } catch (exception: Exception) {
-                throw InvalidInputException("Input $element is not a double")
+                throw InvalidInputException("Input $element is not a double on nodekey $nodeKey")
             }
         }
     },
     BOOLEAN {
-        override fun verifyType(element: JsonPrimitive) {
+        override fun verifyType(element: JsonPrimitive, nodeKey: String) {
             if (!element.isBoolean) {
-                throw InvalidInputException("Input $element is not a boolean")
+                throw InvalidInputException("Input $element is not a boolean on nodekey $nodeKey")
             }
         }
     },
     DATETIME {
-        override fun verifyType(element: JsonPrimitive) {
+        override fun verifyType(element: JsonPrimitive, nodeKey: String) {
             try {
                 DateTimeFormatter.ISO_INSTANT.parse(element.asString)
             } catch (e: ParseException) {
-                throw InvalidInputException("Date Element '${element.asString}' is not a INSTANT DATE")
+                throw InvalidInputException("Date Element '${element.asString}' is not a INSTANT DATE on nodekey $nodeKey")
             }
         }
     };
@@ -76,5 +76,5 @@ enum class PrimitiveTypes {
         }
     }
 
-    abstract fun verifyType(element: JsonPrimitive)
+    abstract fun verifyType(element: JsonPrimitive, nodeKey: String)
 }
