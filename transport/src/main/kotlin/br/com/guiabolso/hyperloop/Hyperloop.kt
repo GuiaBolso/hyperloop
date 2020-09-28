@@ -4,9 +4,7 @@ import br.com.guiabolso.events.model.RequestEvent
 import br.com.guiabolso.hyperloop.cryptography.cypher.MessageCypher
 import br.com.guiabolso.hyperloop.cryptography.cypher.NoOpMessageCypher
 import br.com.guiabolso.hyperloop.environment.getEnv
-import br.com.guiabolso.hyperloop.exceptions.SendMessageException
 import br.com.guiabolso.hyperloop.schemas.aws.S3SchemaRepository
-import br.com.guiabolso.hyperloop.transport.MessageResult
 import br.com.guiabolso.hyperloop.transport.Transport
 import br.com.guiabolso.hyperloop.util.Clock
 import br.com.guiabolso.hyperloop.util.DefaultClock
@@ -29,7 +27,7 @@ constructor(
 
     private val gson = GsonBuilder().serializeNulls().create()
 
-    fun offer(event: RequestEvent): MessageResult {
+    fun offer(event: RequestEvent) {
         event.metadata["receivedAt"] = clock.now().isoFormat()
         val validationResult = validator.validate(event)
 
@@ -39,12 +37,7 @@ constructor(
 
         val encryptedData = messageCypher.cypher(gson.toJson(event))
 
-        val messageResult = transport.sendMessage(encryptedData)
-
-        if (messageResult.messageMD5 != encryptedData.md5()) {
-            throw SendMessageException("Transport could not deliver message correctly! MD5 from event differs from MD5 of transport.")
-        }
-        return messageResult
+        transport.sendMessage(encryptedData)
     }
 
     companion object {

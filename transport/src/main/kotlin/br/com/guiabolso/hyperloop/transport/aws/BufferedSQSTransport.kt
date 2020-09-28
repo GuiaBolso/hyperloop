@@ -1,6 +1,5 @@
 package br.com.guiabolso.hyperloop.transport.aws
 
-import br.com.guiabolso.hyperloop.transport.MessageResult
 import br.com.guiabolso.hyperloop.transport.Transport
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder
@@ -26,14 +25,12 @@ class BufferedSQSTransport(
         }
     )
 
-    override fun sendMessage(message: String): MessageResult {
+    override fun sendMessage(message: String) {
         val sendMessageRequest = SendMessageRequest()
             .withQueueUrl(queueURL)
             .withMessageBody(message)
 
-        val messageResult = sqs.sendMessage(sendMessageRequest)
-
-        return MessageResult(messageResult.messageId, messageResult.mD5OfMessageBody)
+        sqs.sendMessageAsync(sendMessageRequest)
     }
 
     override fun close() {
