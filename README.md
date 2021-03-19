@@ -1,6 +1,6 @@
 # hyperloop
 
-[![Build Status](https://github.com/GuiaBolso/hyperloop/workflows/build/badge.svg?branch=master)](https://github.com/GuiaBolso/hyperloop/actions)
+[![Build](https://github.com/GuiaBolso/hyperloop/actions/workflows/ci.yml/badge.svg)](https://github.com/GuiaBolso/hyperloop/actions/workflows/ci.yml)
 ![Maven Central](https://img.shields.io/maven-central/v/br.com.guiabolso/hyperloop-validator)
 
 
