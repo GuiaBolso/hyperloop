@@ -204,6 +204,21 @@ name:
      of: $User
     ```
 
+* array of map (schema version must be 2)
+    ```yaml
+    types:
+      $ArrayObj:
+        anotherStr:
+          of: string
+    
+        yetAnotherStr:
+          of: string
+    $Data:
+        variable:
+          of: array($ArrayObj)
+    ```
+
+
 #### Defining a Parameter Type
 
 To specify a parameter type, the key `of:` must be used passing one of the accepted types described above.
