@@ -6,7 +6,7 @@ dependencies {
     implementation("com.github.ben-manes.caffeine:caffeine:2.8.5")
 
     // Json Path
-    implementation("com.jayway.jsonpath:json-path:2.4.0")
+    implementation("com.jayway.jsonpath:json-path:2.6.0")
 
     // Jackson
     implementation("com.fasterxml.jackson.core:jackson-databind:2.11.2")
