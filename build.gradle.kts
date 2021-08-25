@@ -1,10 +1,16 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+buildscript {
+    extra.apply {
+        set("aws-version", "1.12.54")
+    }
+}
+
 plugins {
-    kotlin("jvm") version "1.4.31"
+    kotlin("jvm") version "1.5.30"
     `maven-publish`
     signing
-    id("io.gitlab.arturbosch.detekt") version "1.16.0"
+    id("io.gitlab.arturbosch.detekt") version "1.18.0"
 }
 
 allprojects {
@@ -20,36 +26,34 @@ allprojects {
         implementation(kotlin("reflect"))
 
         // Events Protocol
-        implementation("br.com.guiabolso:events-core:5.0.8")
+        implementation("br.com.guiabolso:events-core:6.0.0")
 
         // SLF4J
-        implementation("org.slf4j:slf4j-api:1.7.30")
+        implementation("org.slf4j:slf4j-api:1.7.32")
 
         // JUnit
         testImplementation("junit:junit:4.+")
-        
+
         // Mockito
-        testImplementation("org.mockito:mockito-core:3.5.11")
+        testImplementation("org.mockito:mockito-core:3.12.3")
         testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
     }
     
     repositories {
         mavenCentral()
     }
-    
 
     tasks.withType<KotlinCompile> {
-        sourceCompatibility = "1.8"
-        targetCompatibility = "1.8"
+        sourceCompatibility = "11"
+        targetCompatibility = "11"
         kotlinOptions {
-            useIR = true
-            jvmTarget = "1.8"
+            jvmTarget = "11"
         }
     }
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(8))
+            languageVersion.set(JavaLanguageVersion.of(11))
         }
     }
 
@@ -67,7 +71,6 @@ allprojects {
     }
 
     publishing {
-
         repositories {
             maven {
                 url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
@@ -109,7 +112,6 @@ allprojects {
                 }
             }
         }
-
     }
 
     signing {
