@@ -32,5 +32,5 @@ class PrimitiveType(
     override val nodeKey: String,
     rawType: String
 ) : SchemaType() {
-    val type = PrimitiveTypes.valueOf(rawType.toUpperCase())
+    val type = PrimitiveTypes.valueOf(rawType.uppercase())
 }

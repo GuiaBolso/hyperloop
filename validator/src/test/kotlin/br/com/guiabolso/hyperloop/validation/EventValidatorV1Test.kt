@@ -455,12 +455,12 @@ class EventValidatorV1Test {
             eventVersion,
             "Id",
             "flowId",
-            JsonParser().parse(
+            JsonParser.parseString(
                 """{
                         $payload
                 }"""
             ),
-            JsonParser().parse(
+            JsonParser.parseString(
                 """{
                         $identity
                 }"""

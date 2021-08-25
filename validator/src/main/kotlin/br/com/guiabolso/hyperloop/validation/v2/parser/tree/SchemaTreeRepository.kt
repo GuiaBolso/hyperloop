@@ -105,7 +105,7 @@ class SchemaTreeRepository(
     private fun isRoot(nodePath: String) = nodePath == "$"
     private fun JsonNode.rawType() = this["of"].textValue().replace(arrayTypeRegex) { it.groupValues[1] }
     private fun JsonNode.type() =
-        PrimitiveTypes.valueOfOrNull(this.rawType().toUpperCase())
+        PrimitiveTypes.valueOfOrNull(this.rawType().uppercase())
 
     private fun JsonNode.isScalar() = this.type() in PrimitiveTypes.values()
     private fun JsonNode.isJsonArray() = this["of"].textValue().matches(arrayTypeRegex)

@@ -26,7 +26,7 @@ object SchemaNodeTypeParser {
     }
 
     private fun getType(type: String, nodeKey: String, attribute: String?, schema: SchemaData, specNode: JsonNode): SchemaType {
-        return when (type.toLowerCase()) {
+        return when (type.lowercase()) {
             "string", "long", "int", "float", "double", "boolean" -> PrimitiveType(
                 nodeKey,
                 type
